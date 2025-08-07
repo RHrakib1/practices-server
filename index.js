@@ -8,7 +8,7 @@ app.use(express.json())
 
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = "mongodb+srv://rakibrh1232:YKk0HVkEDstk1pvl@cluster0.vlbcfwa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -39,6 +39,13 @@ async function run() {
             console.log(user)
             const result = await data.insertOne(user);
             res.send(result)
+        })
+        app.delete('/pruser/:id', async (req, res) => {
+            const useriddeltet = req.params.id
+            const courser = { _id: new ObjectId(useriddeltet) }
+            const result = await data.deleteOne(courser)
+            res.send(result)
+            console.log('delete form database', useriddeltet)
         })
 
 
