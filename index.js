@@ -34,6 +34,13 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/pruser/:id', async (req, res) => {
+            const iddata = req.params.id
+            const coureser = { _id: new ObjectId(iddata) }
+            const result = await data.findOne(coureser)
+            res.send(result)
+        })
+
         app.post('/pruser', async (req, res) => {
             const user = req.body
             console.log(user)
