@@ -50,16 +50,17 @@ async function run() {
         app.put('/pruser/:id', async (req, res) => {
             const id = req.params.id
             const user = req.body
+            console.log(id, user)
             const filter = { _id: new ObjectId(id) }
-            const options = { upset: true }
+            const options = { upsert: true }
             const userdata = {
                 $set: {
                     name: user.name,
                     email: user.email
                 }
             }
-            const result = data.updateOne(filter, userdata, options)
-            req.send(result)
+            const result = await data.updateOne(filter, userdata, options)
+            res.send(result)
 
         })
         app.delete('/pruser/:id', async (req, res) => {
