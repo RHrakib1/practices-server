@@ -47,6 +47,21 @@ async function run() {
             const result = await data.insertOne(user);
             res.send(result)
         })
+        app.put('/pruser/:id', async (req, res) => {
+            const id = req.params.id
+            const user = req.body
+            const filter = { _id: new ObjectId(id) }
+            const options = { upset: true }
+            const userdata = {
+                $set: {
+                    name: user.name,
+                    email: user.email
+                }
+            }
+            const result = data.updateOne(filter, userdata, options)
+            req.send(result)
+
+        })
         app.delete('/pruser/:id', async (req, res) => {
             const useriddeltet = req.params.id
             const courser = { _id: new ObjectId(useriddeltet) }
